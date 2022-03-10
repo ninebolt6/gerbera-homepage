@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          
+      - name: cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: "/node_modules"
+          key: ${{ runner.os }}-node-v14-deps-${{ hashFiles('/yarn.lock') }}
+          
+      - run: yarn --check-files --frozen-lockfile --non-interactive
+  
+  format-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - name: restore node_modules
+        uses: actions/cache@v2
+        with:
+          path: "/node_modules"
+          key: ${{ runner.os }}-node-v14-deps-${{ hashFiles('/yarn.lock') }}
+      - run: yarn lint
+
+  type-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - name: restore node_modules
+        uses: actions/cache@v2
+        with:
+          path: "/node_modules"
+          key: ${{ runner.os }}-node-v14-deps-${{ hashFiles('/yarn.lock') }}
+      - run: yarn tsck
+    
