@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi generate",
-    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
     "tsck": "nuxi typecheck --noEmit"
   },
   "devDependencies": {
