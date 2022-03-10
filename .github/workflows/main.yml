@@ -39,6 +39,8 @@ jobs:
           path: "/node_modules"
           key: ${{ runner.os }}-node-v14-deps-${{ hashFiles('/yarn.lock') }}
 
+      - run: yarn install
+
       - run: yarn run lint
 
   type-check:
@@ -58,4 +60,6 @@ jobs:
           path: "/node_modules"
           key: ${{ runner.os }}-node-v14-deps-${{ hashFiles('/yarn.lock') }}
 
-      - run: yarn run tsck
+      - run: yarn install
+
+      - run: yarn tsck
