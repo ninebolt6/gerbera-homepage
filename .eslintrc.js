@@ -5,19 +5,17 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "plugin:vue/essential",
-    "plugin:@typescript-eslint/recommended",
     "@nuxtjs/eslint-config-typescript",
+    "plugin:vue/vue3-essential",
     "prettier",
     "plugin:nuxt/recommended",
   ],
   parserOptions: {
     ecmaVersion: "latest",
-    parser: "@typescript-eslint/parser",
     sourceType: "module",
   },
-  plugins: ["vue", "@typescript-eslint"],
+  plugins: ["vue"],
   rules: {
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn", { args: "all", argsIgnorePattern: "^_" }],
   },
 }
