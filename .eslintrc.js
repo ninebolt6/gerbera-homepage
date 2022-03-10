@@ -7,7 +7,6 @@ module.exports = {
     "eslint:recommended",
     "@nuxtjs/eslint-config-typescript",
     "plugin:vue/vue3-essential",
-    "prettier",
     "plugin:nuxt/recommended",
   ],
   parserOptions: {
@@ -16,6 +15,11 @@ module.exports = {
   },
   plugins: ["vue"],
   rules: {
-    "@typescript-eslint/no-unused-vars": ["warn", { args: "all", argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { args: "all", argsIgnorePattern: "^_" },
+    ],
+    "comma-dangle": ["error", "only-multiline"],
+    quotes: ["error", "double"],
   },
 }
