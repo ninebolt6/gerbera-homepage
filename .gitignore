@@ -8,5 +8,8 @@ node_modules
 # System files
 *.log
 
-#VSCode files
+# VSCode files
 .vscode
+
+# Environments
+.env
