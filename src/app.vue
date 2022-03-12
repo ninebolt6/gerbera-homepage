@@ -35,13 +35,18 @@
         「変化」とは何かをテーマに活動する<br>
         映画制作団体「Gerbera」
       </p>
-      <p>
+      <p class="text-3xl">
         We are making a film on the theme of change.<br>
         Film Production Organization "Gerbera"
       </p>
     </section>
+    <section>
+      <div class="h-[462px] bg-parallax" />
+    </section>
     <section id="services" class="text-center text-base bg-dark-red py-48">
-      <h2>What We Do</h2>
+      <h2 class="mb-16">
+        What We Do
+      </h2>
       <div class="flex text-left mx-16 text-xl">
         <div class="mx-8">
           <div class="h-1/2">
@@ -78,17 +83,17 @@
         </div>
       </div>
     </section>
-    <section id="team" class="text-center bg-dark-red py-48">
+    <section id="team" class="text-center bg-dark-red py-32">
       <h2 class="py-8">
         Meet the Team
       </h2>
       <div class="flex justify-center text-left">
         <div class="mx-8">
           <img src="/taiyo_mizoguchi_profile.png">
-          <p class="font-semibold">
+          <p class="text-3xl font-semibold">
             溝口 太陽
           </p>
-          <p class="font-semibold">
+          <p class="text-3xl font-semibold">
             Taiyo Mizoguchi
           </p>
           <p class="text-xl my-2">
@@ -97,10 +102,10 @@
         </div>
         <div class="mx-8">
           <img src="/fuka_sekiguchi_profile.png">
-          <p class="font-semibold">
+          <p class="text-3xl font-semibold">
             関口 風花
           </p>
-          <p class="font-semibold">
+          <p class="text-3xl font-semibold">
             Fuka Sekiguchi
           </p>
           <p class="text-xl my-2">
@@ -124,7 +129,10 @@ h2 {
   background-image: url("/home1.png");
 }
 
-p {
-  @apply text-3xl;
+.bg-parallax {
+  background-image: url("/home2.png");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
 }
 </style>
