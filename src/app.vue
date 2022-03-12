@@ -43,7 +43,7 @@
     <section>
       <div class="h-[462px] bg-parallax" />
     </section>
-    <section id="services" class="text-center text-base bg-dark-red py-48">
+    <section id="services" class="text-center text-base bg-dark-red py-32">
       <h2 class="mb-16">
         What We Do
       </h2>
@@ -115,11 +115,65 @@
       </div>
     </section>
     <section id="contact" class="text-center py-48 bg-dark-red">
-      <h2>Contact Us</h2>
-      <span>UNDER CONSTRUCTION</span>
+      <div class="bg-[#470f0f] mx-32 py-4 rounded">
+        <h2 class="mb-4">
+          Contact Us
+        </h2>
+        <p class="text-xl my-2">
+          お名前 Your Name
+        </p>
+        <input v-model="username" :class="{ 'border-red-500': isEmpty(username), 'border-green-600': !isEmpty(username) }" type="text">
+        <p class="text-xl my-2">
+          メールアドレス Email address
+        </p>
+        <input v-model="email" :class="{ 'border-red-500': isEmpty(email) || !isValidEmail, 'border-green-600': !isEmpty(email) && isValidEmail }" type="text" @focusout="validateEmail">
+        <p class="text-xl my-2">
+          メッセージ Message
+        </p>
+        <textarea v-model="message" :class="{ 'border-red-500': isEmpty(message), 'border-green-600': !isEmpty(message) }" class="text-black" placeholder="Add a message" /><br>
+        <button class="text-lg my-4 px-4 py-2 border-4 shadow-lg hover:bg-white/50" @click="submit">
+          送信 Submit
+        </button>
+        <p v-if="submitStatus" class="text-xl">
+          {{ submitStatus }}
+        </p>
+      </div>
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+const username = ref("")
+const email = ref("")
+const message = ref("")
+
+const isValidEmail = ref(true)
+const submitStatus = ref("")
+
+const isEmpty = (string: string) => {
+  return !string
+}
+const validateEmail = () => {
+  isValidEmail.value = checkEmailValidation(email.value)
+}
+
+const submit = () => {
+  validateEmail()
+  if (email.value && email.value && message.value) {
+    sendMail()
+    email.value = ""
+    username.value = ""
+    message.value = ""
+    submitStatus.value = "送信に成功しました。 Your message has been submitted."
+  } else if (!isValidEmail.value) {
+    submitStatus.value = "有効なメールアドレスを入力してください。 Email address is invalid."
+  } else {
+    submitStatus.value = "空白の欄を埋めてください。 Fill in the blanks above."
+  }
+}
+
+const { checkEmailValidation, sendMail } = useMailer()
+</script>
 
 <style scoped>
 h2 {
@@ -132,7 +186,24 @@ h2 {
 .bg-parallax {
   background-image: url("/home2.png");
   background-size: cover;
-  background-position: center top;
   background-attachment: fixed;
+}
+
+#contact input {
+  color: black;
+  width: 40%;
+  min-width: 20rem;
+  max-width: 512px;
+  height: 32px;
+  @apply border-b-2;
+}
+
+#contact textarea {
+  color: black;
+  width: 40%;
+  min-width: 20rem;
+  max-width: 512px;
+  height: 10rem;
+  @apply border-b-2;
 }
 </style>
