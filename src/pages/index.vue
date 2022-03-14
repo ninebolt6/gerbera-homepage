@@ -142,37 +142,53 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const username = ref("")
-const email = ref("")
-const message = ref("")
+<script lang="ts">
+export default defineComponent({
+  setup () {
+    const username = ref("")
+    const email = ref("")
+    const message = ref("")
 
-const isValidEmail = ref(true)
-const submitStatus = ref("")
+    const isValidEmail = ref(true)
+    const submitStatus = ref("")
 
-const isEmpty = (string: string) => {
-  return !string
-}
-const validateEmail = () => {
-  isValidEmail.value = checkEmailValidation(email.value)
-}
+    const isEmpty = (string: string) => {
+      return !string
+    }
+    const validateEmail = () => {
+      isValidEmail.value = checkEmailValidation(email.value)
+    }
 
-const submit = () => {
-  validateEmail()
-  if (email.value && email.value && message.value) {
-    sendMail()
-    email.value = ""
-    username.value = ""
-    message.value = ""
-    submitStatus.value = "送信に成功しました。 Your message has been submitted."
-  } else if (!isValidEmail.value) {
-    submitStatus.value = "有効なメールアドレスを入力してください。 Email address is invalid."
-  } else {
-    submitStatus.value = "空白の欄を埋めてください。 Fill in the blanks above."
+    const submit = () => {
+      validateEmail()
+      if (email.value && email.value && message.value) {
+        sendMail()
+        email.value = ""
+        username.value = ""
+        message.value = ""
+        submitStatus.value = "送信に成功しました。 Your message has been submitted."
+      } else if (!isValidEmail.value) {
+        submitStatus.value = "有効なメールアドレスを入力してください。 Email address is invalid."
+      } else {
+        submitStatus.value = "空白の欄を埋めてください。 Fill in the blanks above."
+      }
+    }
+
+    const { checkEmailValidation, sendMail } = useMailer()
+
+    return {
+      isEmpty,
+      validateEmail,
+      submit,
+      username,
+      email,
+      message,
+      isValidEmail,
+      submitStatus
+    }
   }
-}
+})
 
-const { checkEmailValidation, sendMail } = useMailer()
 </script>
 
 <style scoped>
